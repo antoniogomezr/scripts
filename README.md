@@ -20,15 +20,15 @@ Step 4: Make the shell scripts executable chmod +x /home/opc/ocicli/scripts/*.sh
 
 Step 5: As we are using Instance Principals for Authentication, there is no config file contaning the Tenancy ID: Change the value of TENANCY_OCID to your tenancy ID and REGION in all scripts
 
-Step 6: Create an automation using crontab. In the following example shutting down the resources every day at 6p.m. and keeping the log files for 7 days. 
+Step 6: Create an automation using crontab. In the following example shutting down the resources every day at 6p.m., starting first ADB at 7 a.m and OAC at 7.15 a.m. and keeping the log files for 7 days. 
 
-0 18 * * * /home/opc/ocicli/scripts/stop_adbs.sh > /home/opc/ocicli/scripts/log/stop_adbs_date '+\%Y\%m\%d_\%H\%M\%S'.log 
+0 18 * * * /home/opc/ocicli/scripts/adb_startstop.sh stop > /home/opc/ocicli/scripts/log/adb_startstop '+\%Y\%m\%d_\%H\%M\%S'.log 
 
-0 18 * * * /home/opc/ocicli/scripts/stop_dbsystem_nodes.sh > /home/opc/ocicli/scripts/log/stop_dbsystem_nodes_date '+\%Y\%m\%d_\%H\%M\%S'.log 
+0 18 * * * /home/opc/ocicli/scripts/oac_startstop.sh stop > /home/opc/ocicli/scripts/log/oac_startstop '+\%Y\%m\%d_\%H\%M\%S'.log 
 
-0 18 * * * /home/opc/ocicli/scripts/stop_computes.sh > /home/opc/ocicli/scripts/log/stop_computes_date '+\%Y\%m\%d_\%H\%M\%S'.log 
+0 7 * * * /home/opc/ocicli/scripts/adb_startstop.sh start > /home/opc/ocicli/scripts/log/adb_startstop '+\%Y\%m\%d_\%H\%M\%S'.log 
 
-0 18 * * * /home/opc/ocicli/scripts/stop_oac.sh > /home/opc/ocicli/scripts/log/stop_oac_date '+\%Y\%m\%d_\%H\%M\%S'.log 
+15 7 * * * /home/opc/ocicli/scripts/oac_startstop.sh start > /home/opc/ocicli/scripts/log/oac_startstop '+\%Y\%m\%d_\%H\%M\%S'.log 
 
 0 3 * * * find /home/opc/ocicli/scripts/log/ -type f -mtime +7 -name '*.log' -execdir rm -- '{}' ;
 
