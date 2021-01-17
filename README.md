@@ -33,5 +33,3 @@ Step 6: Create an automation using crontab. In the following example shutting do
 0 3 * * * find /home/opc/ocicli/scripts/log/ -type f -mtime +7 -name '*.log' -execdir rm -- '{}' ;
 
 make sure your environment is sourced in cron by add following line to crontab (change the path to your .profile file): SHELL=/bin/bash BASH_ENV=/home/opc/.bash_profile
-
-IMPORTANT: the scripts do not start the resources in the next morning: Option 1: every one in the team starts only the resources needed manually. Option 2: duplicate the scripts and replace "stop" by "start" and create crontab roles to run them
